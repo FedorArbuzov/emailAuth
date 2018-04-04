@@ -1,0 +1,24 @@
+{
+  "name": "emailauth",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./app.js",
+    "test": "node_modules/.bin/mocha -w"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "hbs": "~4.0.1",
+    "http-errors": "~1.6.2",
+    "less-middleware": "~2.2.1",
+    "morgan": "~1.9.0",
+    "supervisor": "0.4.x"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3",
+    "mocha": "*",
+    "should": ">= 0.0.1"
+  }
+}
