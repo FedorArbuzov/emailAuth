@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+
+var config = require('./config/keys');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -43,6 +46,14 @@ app.use(function(err, req, res, next) {
 app.set('port', process.env.PORT || 3000);
 var server = app.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + server.address().port);
+});
+
+app.configure(function () {
+    // set the 'dbUrl' to the mongodb url that corresponds to the
+    // environment we are in
+    app.set('dbUrl', config.mongoURI);
+    // connect mongoose to the mongo dbUrl
+    mongoose.connect(app.get('dbUrl'));
 });
 
 module.exports = app;
