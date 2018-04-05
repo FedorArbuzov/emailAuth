@@ -27,6 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.get('/add/:first/:second', function (req, res) {
+    // convert the two values to floats and add them together
+    var sum = parseFloat(req.params.first) + parseFloat(req.params.second);
+    res.send(200, String(sum));
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -42,18 +48,18 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.set('port', process.env.PORT || 3000);
-var server = app.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + server.address().port);
-});
-
-app.configure(function () {
+/*
+app.set(function () {
     // set the 'dbUrl' to the mongodb url that corresponds to the
     // environment we are in
     app.set('dbUrl', config.mongoURI);
     // connect mongoose to the mongo dbUrl
     mongoose.connect(app.get('dbUrl'));
+});
+*/
+app.set('port', process.env.PORT || 3000);
+var server = app.listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + server.address().port);
 });
 
 module.exports = app;

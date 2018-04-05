@@ -2,7 +2,7 @@
 
 //  Modified from https://github.com/elliotf/mocha-mongoose
 
-var config = require('../config/keys');
+var config = require('../config/keys').mongoURI;
 var mongoose = require('mongoose');
 
 beforeEach(function (done) {
@@ -15,7 +15,7 @@ beforeEach(function (done) {
     }
 
     function reconnect() {
-        mongoose.connect(config.db.test, function (err) {
+        mongoose.connect(config, function (err) {
             if (err) {
                 throw err;
             }
