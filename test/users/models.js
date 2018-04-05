@@ -45,4 +45,65 @@ describe('Users: models', function () {
         });
     });
 
+    describe('Users: models', function () {
+
+        // ... Previous test
+
+        describe('#hashPassoword()', function () {
+            it('should return a hashed password asynchronously', function (done) {
+
+                var password = 'secret';
+
+                User.hashPassword(password, function (err, passwordHash) {
+                    // Confirm that that an error does not exist
+                    should.not.exist(err);
+                    // Confirm that the passwordHash is not null
+                    should.exist(passwordHash);
+                    done();
+                });
+            });
+        });
+
+    });
+});
+
+
+describe('#comparePasswordAndHash()', function () {
+    it('should return true if password is valid', function (done) {
+
+        var password = 'secret';
+
+        // first we need to create a password hash
+        User.hashPassword(password, function (err, passwordHash) {
+            // Confirm that that an error does not exist
+            User.comparePasswordAndHash(password, passwordHash, function (err, areEqual) {
+                // Confirm that that an error does not exist
+                should.not.exist(err);
+                // Confirm that the areEqaul is `true`
+                areEqual.should.equal(true);
+                // notice how we call done() from the final callback
+                done();
+            });
+        });
+    });
+
+    it('should return false if password is invalid', function (done) {
+
+        var password = 'secret';
+
+        // first we need to create a password hash
+        User.hashPassword(password, function (err, passwordHash) {
+
+            var fakePassword = 'imahacker';
+
+            // Confirm that that an error does not exist
+            User.comparePasswordAndHash(fakePassword, passwordHash, function (err, areEqual) {
+                // Confirm that that an error does not exist
+                should.not.exist(err);
+                // Confirm that the are Eqaul is `false`
+                areEqual.should.equal(false);
+                done();
+            });
+        });
+    });
 });
