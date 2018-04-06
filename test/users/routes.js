@@ -23,8 +23,8 @@ describe('Users: routes', function () {
                 .end(function (err, res) {
                     //should.not.exist(err);
                     // confirm the redirect
-                    console.log(res.req.path.includes('/account'))
                     res.req.path.includes('/account').should.be.true();
+                    res.statusCode.should.be.equal(200);
                     done();
                 });
         });
