@@ -5,11 +5,13 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var expressValidator = require('express-validator');
 
 var config = require('./config/keys');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var userRouter = require('./user/routes');
+
 
 var app = express();
 
@@ -25,7 +27,7 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.use('/signup', userRouter);
 
 app.get('/add/:first/:second', function (req, res) {
     // convert the two values to floats and add them together
@@ -48,16 +50,19 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-/*
-app.set(function () {
+
+app.use(function () {
     // set the 'dbUrl' to the mongodb url that corresponds to the
     // environment we are in
     app.set('dbUrl', config.mongoURI);
     // connect mongoose to the mongo dbUrl
     mongoose.connect(app.get('dbUrl'));
 });
-*/
-app.set('port', process.env.PORT || 3000);
+
+app.use(expressValidator);
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.set('port', process.env.PORT || 8000);
 var server = app.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + server.address().port);
 });
