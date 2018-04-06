@@ -16,8 +16,6 @@ describe('addition', function () {
         chai.request(app)
             .get('/add/1/1')
             .end(function (err, res) {
-                should.not.exist(err);
-                console.log(parseFloat(res.text));
                 parseFloat(res.text).should.equal(2);
                 done();
             });
