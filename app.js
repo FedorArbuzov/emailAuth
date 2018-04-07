@@ -30,12 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 //app.use('/signup', userRouter);
 
-app.get('/add/:first/:second', function (req, res) {
-    // convert the two values to floats and add them together
-    var sum = parseFloat(req.params.first) + parseFloat(req.params.second);
-    res.send(200, String(sum));
-});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
