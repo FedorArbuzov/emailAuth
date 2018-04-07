@@ -6,6 +6,7 @@ var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var expressValidator = require('express-validator');
+var passport = require('passport');
 
 var config = require('./config/keys');
 
