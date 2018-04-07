@@ -17,7 +17,11 @@ router.post('/signup', function(req, res, next) {
 });
 
 router.post('/reset', function(req, res, next){
-    res,send();
+    res.send();
+})
+
+router.get('/confirm/:id', function(req, res, next){
+    res.send();
 })
 
 router.get('/account', function(req, res, next) {
