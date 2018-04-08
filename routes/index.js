@@ -20,10 +20,6 @@ router.post('/reset', function(req, res, next){
     res.send();
 })
 
-router.get('/confirm/:id', function(req, res, next){
-    res.send();
-})
-
 router.get('/account', function(req, res, next) {
     res.render('index', { title: 'Account' });
 });
