@@ -4,11 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
+var config = require('./config/keys');
 var mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(config.mongoURI)
+    .then(() =>  console.log('connection successful'))
+    .catch((err) => console.error(err));
+
 var expressValidator = require('express-validator');
 var passport = require('passport');
-
-var config = require('./config/keys');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./user/routes');
@@ -27,8 +33,8 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
-//app.use('/signup', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -46,6 +52,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use(expressValidator);
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(function () {
     // set the 'dbUrl' to the mongodb url that corresponds to the
     // environment we are in
@@ -53,9 +62,6 @@ app.use(function () {
     // connect mongoose to the mongo dbUrl
     mongoose.connect(app.get('dbUrl'));
 });
-
-app.use(expressValidator);
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('port', process.env.PORT || 8000);
 var server = app.listen(app.get('port'), function() {

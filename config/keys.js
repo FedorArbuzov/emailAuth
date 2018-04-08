@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: 'mongodb://fedor.a.hope:MGTA2019@ds235169.mlab.com:35169/email-auth'
+    mongoURI: 'mongodb://fedor.a.hope:MGTA2019@ds046067.mlab.com:46067/email-auth'
 }
