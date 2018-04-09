@@ -17,7 +17,6 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 
 var indexRouter = require('./routes/index');
-var userRouter = require('./user/routes');
 
 
 var app = express();
