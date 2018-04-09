@@ -52,6 +52,25 @@ router.post('/signup', function(req, res, next) {
 
 });
 
+router.get('/verify/:token', function (req, res, next) {
+    console.log("Cookies :  ", req.cookies);
+    console.log(req.params.token);
+    User.findOne({authToken: req.params.token}, function (err, user) {
+        if (err) throw err;
+        if (user) {
+            user.isAuthenticated = true;
+
+            user.save(function (err) {
+                if (err) throw err;
+
+                console.log('User updated!')
+            })
+
+            res.cookie('user', '123', { maxAge: 900000, httpOnly: true }).send('cookie is set');
+        }
+    })
+})
+
 router.post('/reset', function(req, res, next){
     res.send();
 })
