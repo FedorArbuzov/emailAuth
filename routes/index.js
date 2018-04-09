@@ -71,8 +71,9 @@ router.get('/verify/:token', function (req, res, next) {
     })
 })
 
-router.post('/reset', function(req, res, next){
-    res.send();
+router.get('/reset', function(req, res, next){
+    res.clearCookie('user');
+    res.send('Cookie deleted');
 })
 
 router.get('/account', function(req, res, next) {
