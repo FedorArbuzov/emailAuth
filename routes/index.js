@@ -65,7 +65,6 @@ router.get('/verify/:token', function (req, res, next) {
 
                 console.log('User updated!')
             })
-
             res.cookie('user', '123', { maxAge: 900000, httpOnly: true }).send('cookie is set');
         }
     })
