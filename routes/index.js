@@ -62,10 +62,10 @@ router.get('/verify/:token', function (req, res, next) {
 
             user.save(function (err) {
                 if (err) throw err;
-
+                res.cookie('user', req.params.token, { maxAge: 900000, httpOnly: true }).send('cookie is set');
                 console.log('User updated!')
             })
-            res.cookie('user', '123', { maxAge: 900000, httpOnly: true }).send('cookie is set');
+
         }
     })
 })
@@ -76,6 +76,15 @@ router.get('/reset', function(req, res, next){
 })
 
 router.get('/account', function(req, res, next) {
+    console.log("Cookies :  ", req.cookies);
+    userToken = req.cookies['user']
+    console.log(userToken)
+    User.findOne({authToken: userToken}, function (err, user) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(user);
+    })
     res.render('index', { title: 'Account' });
 });
 
