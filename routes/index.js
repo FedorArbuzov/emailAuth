@@ -12,7 +12,21 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express app' });
 });
 
-router.get('/login', function (req, res, next) {
+router.post('/login', function (req, res, next) {
+    console.log('user email: ', req.body.email);
+    console.log('user password: ', req.body.password);
+
+    // fetch user and test password verification
+    User.findOne({ email: req.body.email}, function(err, user) {
+        if (err) throw err;
+
+        // test a failing password
+        user.comparePassword(req.body.password, function(err, isMatch) {
+            if (err) throw err;
+            console.log(user);
+            res.cookie('user', user.authToken, { maxAge: 900000, httpOnly: true }).send('cookie is set');
+        });
+    });
     res.send();
 })
 
